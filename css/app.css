@@ -109,3 +109,109 @@ h1 {
     float: right;
     cursor: pointer;
 }
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding: 40px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: #58646d; /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+	color: #58646d;
+    background-color: #fefefe;
+    border-radius: 6px;
+    font-family: "Open Sans", Helvetica, sans-serif;
+    margin: auto;
+    border: 1px solid #888;
+    width: 570px;
+    text-align: center;
+}
+
+.modal-header {
+	border-bottom: 1px solid #dbe2e8;
+	padding: 0 40px 30px 40px;
+}
+
+.modal-header h4 {
+	color: #02ccba;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+}
+
+.modal-body {
+	padding: 30px 40px 30px 40px;
+}
+
+/* The Close Button */
+.btn {
+	border-style: none;
+}
+
+.btn:hover {
+	text-decoration: none;
+    cursor: pointer;
+}
+
+.close {
+	background-color: #58646d;
+    color: #fefefe;
+    display: block;
+    font-size: 28px;
+    font-weight: 600;
+    position: relative;
+    left: 73%;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+}
+
+.icon {
+	width: 150px;
+    height: 150px;
+    display: inline-block;
+}
+
+/* The Restart Button */
+.again {
+	background: #02b3e4;
+	border-radius: 4px;
+    box-shadow: 12px 15px 20px rgba(0,0,0,.1);
+	margin-top: 20px;
+	padding: 1.2em 4em;
+	transition: box-shadow .2s ease-in-out,background-color .2s ease-in-out,border-color .2s ease-in-out;
+
+}
+
+.again:hover,
+.again:focus {
+	box-shadow: 2px 4px 8px 0  rgba(0,0,0,.1);
+	background-color: #148bb1 ;
+}
+
+.again i {
+	color: #fff;
+	padding-right: 2px;
+}
+
+.again p {
+	color: #fff;
+	display: inline;
+	font-family: Open Sans,sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .165em;
+    text-transform: uppercase;
+}

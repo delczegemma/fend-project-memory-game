@@ -37,17 +37,26 @@ function shuffle(array) {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
  const playGround = document.querySelector('.deck');
+ const cards = playGround.querySelectorAll(".card");
  let clicknum = 0;
+ let matched = 0;
  let prev = null;
+ let modal = document.getElementById('myModal');
 
+
+// Main function
  function memoryGame(e){
- 	if(e.target.classList.contains("match") === false){
+ 	if(!(e.target.classList.contains("show") || e.target.parentNode.classList.contains("show"))){
  		clicknum++;
  		turn(e.target);
  		if (clicknum === 2){
  			if(e.target.innerHTML === prev.innerHTML){
  				e.target.classList.add("match");
  				prev.classList.add("match");
+ 				matched = matched + 2;
+ 				if(matched === cards.length){
+ 					winMessage();
+ 				}
  			}else{
  				setTimeout(function() {
     				turn(prev);
@@ -62,9 +71,22 @@ function shuffle(array) {
  }
 
 function turn(o){
-	console.log("turned ", o.children[0]);
 	o.classList.toggle('open');
 	o.classList.toggle('show');
 }
 
+// Modal events
+ function winMessage(){
+ 	modal.style.display = "block";
+ }
+
+ function closeModal(){
+ 	modal.style.display = "none";
+ }
+
+// Event Listeners
+
 playGround.addEventListener('click', memoryGame);
+
+//Modal event listeners
+document.getElementById('modalClose').addEventListener('click', closeModal);
