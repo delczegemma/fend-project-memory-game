@@ -46,10 +46,13 @@ function shuffle(array) {
  		turn(e.target);
  		if (clicknum === 2){
  			if(e.target.innerHTML === prev.innerHTML){
- 				e.target.classList.add("match")
+ 				e.target.classList.add("match");
+ 				prev.classList.add("match");
  			}else{
- 				turn(e.target);
- 				turn(prev);
+ 				setTimeout(function() {
+    				turn(prev);
+    				turn(e.target);
+  				}, 900);
  			}
  			clicknum = 0;
  		}else{
@@ -59,6 +62,7 @@ function shuffle(array) {
  }
 
 function turn(o){
+	console.log("turned ", o.children[0]);
 	o.classList.toggle('open');
 	o.classList.toggle('show');
 }
