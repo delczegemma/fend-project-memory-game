@@ -36,3 +36,31 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+ const playGround = document.querySelector('.deck');
+ let clicknum = 0;
+ let prev = null;
+
+ function memoryGame(e){
+ 	if(e.target.classList.contains("match") === false){
+ 		clicknum++;
+ 		turn(e.target);
+ 		if (clicknum === 2){
+ 			if(e.target.innerHTML === prev.innerHTML){
+ 				e.target.classList.add("match")
+ 			}else{
+ 				turn(e.target);
+ 				turn(prev);
+ 			}
+ 			clicknum = 0;
+ 		}else{
+ 			prev = e.target;
+ 		}
+ 	}
+ }
+
+function turn(o){
+	o.classList.toggle('open');
+	o.classList.toggle('show');
+}
+
+playGround.addEventListener('click', memoryGame);
