@@ -1,8 +1,47 @@
 /*
  * Create a list that holds all of your cards
  */
+const cardContents = [
+      'fa-paper-plane-o',
+      'fa-diamond',
+      'fa-anchor',
+      'fa-bicycle',
+      'fa-bolt',
+      'fa-cube',
+      'fa-leaf',
+      'fa-bomb',
+      'fa-paper-plane-o',
+      'fa-diamond',
+      'fa-anchor',
+      'fa-bicycle',
+      'fa-bolt',
+      'fa-cube',
+      'fa-leaf',
+      'fa-bomb'
+    ];
 
+ const playGround = document.querySelector('.deck');
+ const cards = playGround.querySelectorAll('.card');
+ const modal = document.getElementById('myModal');
+ let clicknum = 0;
+ let matched = 0;
+ let prev = null;
 
+ //Arrange the deck in a new order to getting start the game
+function init() {
+	shuffle(cardContents);
+	for(let i = 0; i < cards.length; i++ ) {
+		cards[i].innerHTML = '<i class="fa ' + cardContents[i] + '"></i>';
+	}
+}
+
+function restart() {
+	for (const card of cards) {
+		card.classList.remove('show', 'open', 'match');
+	}
+	closeModal();
+	setTimeout(init,900);
+}
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -36,25 +75,19 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
- const playGround = document.querySelector('.deck');
- const cards = playGround.querySelectorAll(".card");
- let clicknum = 0;
- let matched = 0;
- let prev = null;
- let modal = document.getElementById('myModal');
 
 
 // Main function
  function memoryGame(e){
- 	if(!(e.target.classList.contains("show") || e.target.parentNode.classList.contains("show"))){
+ 	if(!(e.target.classList.contains('show') || e.target.parentNode.classList.contains('show'))){
  		clicknum++;
  		turn(e.target);
  		if (clicknum === 2){
  			if(e.target.innerHTML === prev.innerHTML){
- 				e.target.classList.add("match");
- 				prev.classList.add("match");
- 				winMessage();
+ 				e.target.classList.add('match');
+ 				prev.classList.add('match');
  				matched = matched + 2;
+ 				console.log(matched);
  				if(matched === cards.length){
  					winMessage();
  				}
@@ -78,16 +111,20 @@ function turn(o){
 
 // Modal events
  function winMessage(){
- 	modal.style.display = "block";
+ 	modal.style.display = 'block';
  }
 
  function closeModal(){
- 	modal.style.display = "none";
+ 	modal.style.display = 'none';
  }
 
 // Event Listeners
 
 playGround.addEventListener('click', memoryGame);
+document.querySelector('.restart').addEventListener('click',restart,false);
+document.querySelector('.again').addEventListener('click',restart,false);
 
 //Modal event listeners
 document.getElementById('modalClose').addEventListener('click', closeModal);
+
+window.addEventListener('load',init, false);
