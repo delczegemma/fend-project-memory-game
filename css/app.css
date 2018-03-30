@@ -38,8 +38,8 @@ h1 {
  */
 
 .deck {
-    width: 660px;
-    min-height: 680px;
+    width: 41.25em;
+    min-height: 42.5em;
     background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
     padding: 32px;
     border-radius: 10px;
@@ -133,7 +133,7 @@ h1 {
     font-family: "Open Sans", Helvetica, sans-serif;
     margin: auto;
     border: 1px solid #888;
-    width: 570px;
+    width: 45%;
     text-align: center;
 }
 

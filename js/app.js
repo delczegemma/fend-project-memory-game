@@ -53,6 +53,7 @@ function shuffle(array) {
  			if(e.target.innerHTML === prev.innerHTML){
  				e.target.classList.add("match");
  				prev.classList.add("match");
+ 				winMessage();
  				matched = matched + 2;
  				if(matched === cards.length){
  					winMessage();
