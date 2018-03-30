@@ -93,14 +93,14 @@ h1 {
     margin-bottom: 10px;
 }
 
-.score-panel .stars {
+ .stars {
     margin: 0;
     padding: 0;
     display: inline-block;
     margin: 0 5px 0 0;
 }
 
-.score-panel .stars li {
+ .stars li {
     list-style: none;
     display: inline-block;
 }
@@ -151,6 +151,11 @@ h1 {
 
 .modal-body {
 	padding: 30px 40px 30px 40px;
+}
+
+.golden li {
+	color: gold;
+	font-size: 1.8em;
 }
 
 /* The Close Button */

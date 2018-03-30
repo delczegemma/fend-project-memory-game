@@ -24,11 +24,15 @@ const cardContents = [
  const cards = playGround.querySelectorAll('.card');
  const modal = document.getElementById('myModal');
  let clicknum = 0;
+ let move = 0;
  let matched = 0;
+ let stars = 3;
  let prev = null;
 
  //Arrange the deck in a new order to getting start the game
 function init() {
+	move = 0;
+	displayMove(move);
 	shuffle(cardContents);
 	for(let i = 0; i < cards.length; i++ ) {
 		cards[i].innerHTML = '<i class="fa ' + cardContents[i] + '"></i>';
@@ -64,7 +68,24 @@ function shuffle(array) {
     return array;
 }
 
+//Movecounters
 
+function displayMove(num) {
+	document.querySelector('.moves').innerText = num;
+}
+
+function scoreCounter(steps) {
+	if (steps === 18 || steps === 30) {
+		displayStars()
+	}
+}
+
+function displayStars() {
+	const starList = document.querySelectorAll('.stars');
+	console.log(starList[1]);
+	starList[0].removeChild(starList[0].firstElementChild);
+	starList[1].removeChild(starList[1].firstElementChild);
+}
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -82,23 +103,26 @@ function shuffle(array) {
  	if(!(e.target.classList.contains('show') || e.target.parentNode.classList.contains('show'))){
  		clicknum++;
  		turn(e.target);
- 		if (clicknum === 2){
- 			if(e.target.innerHTML === prev.innerHTML){
+ 		if (clicknum === 2) {
+ 			move++;
+ 			if(e.target.innerHTML === prev.innerHTML) {
  				e.target.classList.add('match');
  				prev.classList.add('match');
  				matched = matched + 2;
- 				console.log(matched);
+ 				winMessage();
  				if(matched === cards.length){
  					winMessage();
  				}
- 			}else{
+ 			} else {
  				setTimeout(function() {
     				turn(prev);
     				turn(e.target);
   				}, 900);
  			}
  			clicknum = 0;
- 		}else{
+ 			displayMove(move);
+ 			scoreCounter(move);
+ 		} else {
  			prev = e.target;
  		}
  	}
