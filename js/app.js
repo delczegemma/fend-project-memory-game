@@ -23,15 +23,19 @@ const cardContents = [
  const playGround = document.querySelector('.deck');
  const cards = playGround.querySelectorAll('.card');
  const modal = document.getElementById('myModal');
- let clicknum = 0;
+ let clicknum = -1;
  let move = 0;
  let matched = 0;
- let stars = 3;
  let prev = null;
+ let sec = 0, min = 0, hour = 0;
 
  //Arrange the deck in a new order to getting start the game
 function init() {
 	move = 0;
+	clicknum = -1;
+	matched = 0;
+	prev = null;
+	sec = 0, min = 0, hour = 0;
 	displayMove(move);
 	shuffle(cardContents);
 	for(let i = 0; i < cards.length; i++ ) {
@@ -71,7 +75,7 @@ function shuffle(array) {
 //Movecounters
 
 function displayMove(num) {
-	document.querySelector('.moves').innerText = num;
+	document.querySelector('.moves').innerText = num + " ";
 }
 
 function scoreCounter(steps) {
@@ -85,6 +89,45 @@ function displayStars() {
 	console.log(starList[1]);
 	starList[0].removeChild(starList[0].firstElementChild);
 	starList[1].removeChild(starList[1].firstElementChild);
+}
+
+//Timer
+let timer = function() {
+	sec++;
+	if (sec === 60) {
+		sec = 0;
+		min++;
+	}
+	if (min === 60){
+		min = 0;
+		hour++;
+	}
+	timeOnBoard();
+	setTimeout(timer, 1000);
+}
+
+function displayTimer () {
+	let time =  (hour ? (hour > 9 ? hour + ":" : "0" + hour + ":") : "") +
+	 (min ? (min > 9 ? min : "0" + min) : "00") +
+	  ":" + (sec > 9 ? sec : "0" + sec);
+	return time;
+}
+
+function timeOnBoard () {
+	const clock = document.querySelector('time');
+	let time = displayTimer();
+	clock.innerHTML = time;
+}
+
+function stopTime () {
+	clearTimeout(timer);
+	let result = document.querySelector('.time');
+	let time = displayTimer();
+	result.innerHTML = time;
+}
+
+function startTime () {
+		setTimeout(timer, 1000);
 }
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -101,6 +144,10 @@ function displayStars() {
 // Main function
  function memoryGame(e){
  	if(!(e.target.classList.contains('show') || e.target.parentNode.classList.contains('show'))){
+ 		if (clicknum === -1) {
+			clicknum = 0;
+			startTime();
+		}
  		clicknum++;
  		turn(e.target);
  		if (clicknum === 2) {
@@ -135,6 +182,8 @@ function turn(o){
 
 // Modal events
  function winMessage(){
+ 	console.log("itt vagyok");
+ 	stopTime();
  	modal.style.display = 'block';
  }
 
@@ -144,7 +193,7 @@ function turn(o){
 
 // Event Listeners
 
-playGround.addEventListener('click', memoryGame);
+playGround.addEventListener('click', memoryGame, false);
 document.querySelector('.restart').addEventListener('click',restart,false);
 document.querySelector('.again').addEventListener('click',restart,false);
 
