@@ -1,7 +1,7 @@
 /*
  * Create a list that holds all of your cards
  */
-const cardContents = [
+const CARD_CONTENTS = [
       'fa-paper-plane-o',
       'fa-diamond',
       'fa-anchor',
@@ -20,10 +20,10 @@ const cardContents = [
       'fa-bomb'
     ];
 
- const playGround = document.querySelector('.deck');
- const cards = playGround.querySelectorAll('.card');
- const modal = document.getElementById('myModal');
- const starList = document.querySelectorAll('.stars');
+ const PLAYGROUND = document.querySelector('.deck');
+ const CARDS = PLAYGROUND.querySelectorAll('.card');
+ const MODAL = document.getElementById('myModal');
+ const STAR_LIST = document.querySelectorAll('.stars');
  let clicknum = -1;
  let move = 0;
  let matched = 0;
@@ -40,20 +40,20 @@ function init() {
 	sec = 0, min = 0, hour = 0;
 	timeOnBoard();
 	displayMove(move);
-	shuffle(cardContents);
-	for(let i = 0; i < cards.length; i++ ) {
-		cards[i].innerHTML = '<i class="fa ' + cardContents[i] + '"></i>';
+	shuffle(CARD_CONTENTS);
+	for(let i = 0; i < CARDS.length; i++ ) {
+		CARDS[i].innerHTML = '<i class="fa ' + CARD_CONTENTS[i] + '"></i>';
 	}
 }
 
 function restart() {
-	for (const card of cards) {
-		card.classList.remove('show', 'open', 'match');
+	for (const CARD of CARDS) {
+		CARD.classList.remove('show', 'open', 'match');
 	}
-	starList[0].innerHTML = '<li><i class="fa fa-star"></i></li>' +
+	STAR_LIST[0].innerHTML = '<li><i class="fa fa-star"></i></li>' +
                 '<li><i class="fa fa-star"></i></li>'+
                 '<li><i class="fa fa-star"></i></li>';
-    starList[1].innerHTML = '<li><i class="fa fa-star"></i></li>' +
+    STAR_LIST[1].innerHTML = '<li><i class="fa fa-star"></i></li>' +
                 '<li><i class="fa fa-star"></i></li>'+
                 '<li><i class="fa fa-star"></i></li>'
 	closeModal();
@@ -85,7 +85,7 @@ function shuffle(array) {
 //Movecounters
 
 function displayMove(num) {
-	document.querySelector('.moves').innerText = num + " ";
+	document.querySelector('.moves').innerText = `${num} `;
 }
 
 function scoreCounter(steps) {
@@ -95,9 +95,9 @@ function scoreCounter(steps) {
 }
 
 function displayStars() {
-	console.log(starList[1]);
-	starList[0].removeChild(starList[0].firstElementChild);
-	starList[1].removeChild(starList[1].firstElementChild);
+	console.log(STAR_LIST[1]);
+	STAR_LIST[0].removeChild(STAR_LIST[0].firstElementChild);
+	STAR_LIST[1].removeChild(STAR_LIST[1].firstElementChild);
 }
 
 //Timer
@@ -124,9 +124,9 @@ function displayTimer () {
 }
 
 function timeOnBoard () {
-	const clock = document.querySelector('time');
+	const CLOCK = document.querySelector('time');
 	let time = displayTimer();
-	clock.innerHTML = time;
+	CLOCK.innerHTML = time;
 }
 
 function stopTime () {
@@ -152,37 +152,48 @@ function startTime () {
 
 
 // Main function
- function memoryGame(e) {
+function memoryGame(e) {
  	if(!(e.target.classList.contains('show') || e.target.parentNode.classList.contains('show'))) {
  		if (clicknum === -1) {
 			clicknum = 0;
 			startTime();
 		}
- 		clicknum++;
- 		turn(e.target);
- 		if (clicknum === 2) {
- 			move++;
- 			if(e.target.innerHTML === prev.innerHTML) {
- 				e.target.classList.add('match');
- 				prev.classList.add('match');
- 				matched = matched + 2;
- 				if(matched === cards.length){
- 					winMessage();
- 				}
- 			} else {
- 				setTimeout(function() {
-    				turn(prev);
-    				turn(e.target);
-  				}, 900);
- 			}
- 			clicknum = 0;
- 			displayMove(move);
- 			scoreCounter(move);
- 		} else {
+		if(clicknum == 2){
+            return;
+        }
+		turn(e.target);
+		clicknum++;
+		if (clicknum === 2 ){
+			checkIfMatch(e.target);
+			setTimeout(function(){
+				clicknum = 0;
+			},1000);
+		} else {
  			prev = e.target;
  		}
  	}
  }
+
+function checkIfMatch(clickedCard) {
+	move++;
+ 	if(clickedCard.innerHTML === prev.innerHTML) {
+ 		clickedCard.classList.add('match');
+ 		prev.classList.add('match');
+ 		matched = matched + 2;
+ 		if(matched === CARDS.length){
+ 			winMessage();
+ 		}
+ 	} else {
+ 		setTimeout(function() {
+ 			console.log("beértem, mier nem fordulok");
+   			turn(prev);
+			turn(clickedCard);
+  		}, 900);
+ 	}
+ 	displayMove(move);
+	scoreCounter(move);
+}
+
 
 function turn(o) {
 	o.classList.toggle('open');
@@ -193,16 +204,16 @@ function turn(o) {
  function winMessage() {
  	console.log("itt vagyok");
  	stopTime();
- 	modal.style.display = 'block';
+ 	MODAL.style.display = 'block';
  }
 
  function closeModal() {
- 	modal.style.display = 'none';
+ 	MODAL.style.display = 'none';
  }
 
 // Event Listeners
 
-playGround.addEventListener('click', memoryGame, false);
+PLAYGROUND.addEventListener('click', memoryGame);
 document.querySelector('.restart').addEventListener('click',restart,false);
 document.querySelector('.again').addEventListener('click',restart,false);
 
