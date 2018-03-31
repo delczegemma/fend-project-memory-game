@@ -185,7 +185,6 @@ function checkIfMatch(clickedCard) {
  		}
  	} else {
  		setTimeout(function() {
- 			console.log("beértem, mier nem fordulok");
    			turn(prev);
 			turn(clickedCard);
   		}, 900);
