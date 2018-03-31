@@ -29,6 +29,7 @@ const cardContents = [
  let matched = 0;
  let prev = null;
  let sec = 0, min = 0, hour = 0;
+ let runTimeout;
 
  //Arrange the deck in a new order to getting start the game
 function init() {
@@ -37,6 +38,7 @@ function init() {
 	matched = 0;
 	prev = null;
 	sec = 0, min = 0, hour = 0;
+	timeOnBoard();
 	displayMove(move);
 	shuffle(cardContents);
 	for(let i = 0; i < cards.length; i++ ) {
@@ -55,6 +57,7 @@ function restart() {
                 '<li><i class="fa fa-star"></i></li>'+
                 '<li><i class="fa fa-star"></i></li>'
 	closeModal();
+	stopTime();
 	setTimeout(init,900);
 }
 /*
@@ -98,6 +101,7 @@ function displayStars() {
 }
 
 //Timer
+//Idea from here: https://jsfiddle.net/Daniel_Hug/pvk6p/
 let timer = function() {
 	sec++;
 	if (sec === 60) {
@@ -109,7 +113,7 @@ let timer = function() {
 		hour++;
 	}
 	timeOnBoard();
-	setTimeout(timer, 1000);
+	runTimout = setTimeout(timer, 1000);
 }
 
 function displayTimer () {
@@ -126,7 +130,7 @@ function timeOnBoard () {
 }
 
 function stopTime () {
-	clearTimeout(timer);
+	clearTimeout(runTimout);
 	let result = document.querySelector('.time');
 	let time = displayTimer();
 	result.innerHTML = time;
