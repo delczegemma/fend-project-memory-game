@@ -23,6 +23,7 @@ const cardContents = [
  const playGround = document.querySelector('.deck');
  const cards = playGround.querySelectorAll('.card');
  const modal = document.getElementById('myModal');
+ const starList = document.querySelectorAll('.stars');
  let clicknum = -1;
  let move = 0;
  let matched = 0;
@@ -47,6 +48,12 @@ function restart() {
 	for (const card of cards) {
 		card.classList.remove('show', 'open', 'match');
 	}
+	starList[0].innerHTML = '<li><i class="fa fa-star"></i></li>' +
+                '<li><i class="fa fa-star"></i></li>'+
+                '<li><i class="fa fa-star"></i></li>';
+    starList[1].innerHTML = '<li><i class="fa fa-star"></i></li>' +
+                '<li><i class="fa fa-star"></i></li>'+
+                '<li><i class="fa fa-star"></i></li>'
 	closeModal();
 	setTimeout(init,900);
 }
@@ -85,7 +92,6 @@ function scoreCounter(steps) {
 }
 
 function displayStars() {
-	const starList = document.querySelectorAll('.stars');
 	console.log(starList[1]);
 	starList[0].removeChild(starList[0].firstElementChild);
 	starList[1].removeChild(starList[1].firstElementChild);
