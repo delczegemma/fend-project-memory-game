@@ -142,8 +142,8 @@ function startTime () {
 
 
 // Main function
- function memoryGame(e){
- 	if(!(e.target.classList.contains('show') || e.target.parentNode.classList.contains('show'))){
+ function memoryGame(e) {
+ 	if(!(e.target.classList.contains('show') || e.target.parentNode.classList.contains('show'))) {
  		if (clicknum === -1) {
 			clicknum = 0;
 			startTime();
@@ -156,7 +156,6 @@ function startTime () {
  				e.target.classList.add('match');
  				prev.classList.add('match');
  				matched = matched + 2;
- 				winMessage();
  				if(matched === cards.length){
  					winMessage();
  				}
@@ -175,19 +174,19 @@ function startTime () {
  	}
  }
 
-function turn(o){
+function turn(o) {
 	o.classList.toggle('open');
 	o.classList.toggle('show');
 }
 
 // Modal events
- function winMessage(){
+ function winMessage() {
  	console.log("itt vagyok");
  	stopTime();
  	modal.style.display = 'block';
  }
 
- function closeModal(){
+ function closeModal() {
  	modal.style.display = 'none';
  }
 
