@@ -15,6 +15,6 @@ This game can played on any device but a browser is required. You can reach the 
 
 ## Contributing
 
-This repository is an Undacity Project. Therefore, we most likely will not accept pull requests.
+This repository is an Udacity Project. Therefore, we most likely will not accept pull requests.
 
 For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
