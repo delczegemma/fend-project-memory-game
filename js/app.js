@@ -1,6 +1,3 @@
-/*
- * Create a list that holds all of your cards
- */
 const CARD_CONTENTS = [
       'fa-paper-plane-o',
       'fa-diamond',
@@ -37,7 +34,7 @@ function init() {
 	clicknum = -1;
 	matched = 0;
 	prev = null;
-	sec = 0, min = 0, hour = 0;
+	sec = 0; min = 0; hour = 0;
 	timeOnBoard();
 	displayMove(move);
 	shuffle(CARD_CONTENTS);
@@ -55,7 +52,7 @@ function restart() {
                 '<li><i class="fa fa-star"></i></li>';
     STAR_LIST[1].innerHTML = '<li><i class="fa fa-star"></i></li>' +
                 '<li><i class="fa fa-star"></i></li>'+
-                '<li><i class="fa fa-star"></i></li>'
+                '<li><i class="fa fa-star"></i></li>';
 	closeModal();
 	stopTime();
 	setTimeout(init,900);
@@ -90,7 +87,7 @@ function displayMove(num) {
 
 function scoreCounter(steps) {
 	if (steps === 18 || steps === 30) {
-		displayStars()
+		displayStars();
 	}
 }
 
@@ -113,8 +110,8 @@ let timer = function() {
 		hour++;
 	}
 	timeOnBoard();
-	runTimout = setTimeout(timer, 1000);
-}
+	runTimeout = setTimeout(timer, 1000);
+};
 
 function displayTimer () {
 	let time =  (hour ? (hour > 9 ? hour + ":" : "0" + hour + ":") : "") +
@@ -130,7 +127,7 @@ function timeOnBoard () {
 }
 
 function stopTime () {
-	clearTimeout(runTimout);
+	clearTimeout(runTimeout);
 	let result = document.querySelector('.time');
 	let time = displayTimer();
 	result.innerHTML = time;
