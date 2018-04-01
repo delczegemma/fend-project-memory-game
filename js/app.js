@@ -43,6 +43,7 @@ function init() {
 	}
 }
 
+//Setting everything back to the starting position t obe able starting the game again
 function restart() {
 	for (const CARD of CARDS) {
 		CARD.classList.remove('show', 'open', 'match');
@@ -79,26 +80,27 @@ function shuffle(array) {
     return array;
 }
 
-//Movecounters
-
+//** Movecounters Section **
+//Displays the movesteps to the page
 function displayMove(num) {
 	document.querySelector('.moves').innerText = `${num} `;
 }
 
+//Decides, when a star is getting loose and stepping to a lower score phase
 function scoreCounter(steps) {
 	if (steps === 18 || steps === 30) {
 		displayStars();
 	}
 }
 
+//Remove starts from the page, when it is needed
 function displayStars() {
-	console.log(STAR_LIST[1]);
 	STAR_LIST[0].removeChild(STAR_LIST[0].firstElementChild);
 	STAR_LIST[1].removeChild(STAR_LIST[1].firstElementChild);
 }
 
-//Timer
-//Idea from here: https://jsfiddle.net/Daniel_Hug/pvk6p/
+//** Timer Section **
+//Set the timer values. Idea from here: https://jsfiddle.net/Daniel_Hug/pvk6p/
 let timer = function() {
 	sec++;
 	if (sec === 60) {
@@ -113,6 +115,7 @@ let timer = function() {
 	runTimeout = setTimeout(timer, 1000);
 };
 
+//Format the the text of the time, how it should be displayed
 function displayTimer () {
 	let time =  (hour ? (hour > 9 ? hour + ":" : "0" + hour + ":") : "") +
 	 (min ? (min > 9 ? min : "0" + min) : "00") +
@@ -120,12 +123,14 @@ function displayTimer () {
 	return time;
 }
 
+//Displays the timer to the page
 function timeOnBoard () {
 	const CLOCK = document.querySelector('time');
 	let time = displayTimer();
 	CLOCK.innerHTML = time;
 }
 
+//Stops the timer and sends the final step to be displayed in upcoming modal.
 function stopTime () {
 	clearTimeout(runTimeout);
 	let result = document.querySelector('.time');
@@ -133,6 +138,7 @@ function stopTime () {
 	result.innerHTML = time;
 }
 
+//Starts te timer to being recounted in each second.
 function startTime () {
 		setTimeout(timer, 1000);
 }
@@ -148,7 +154,8 @@ function startTime () {
  */
 
 
-// Main function
+//** Main function **
+// Sets the happenings, when a card is being clicked.
 function memoryGame(e) {
  	if(!(e.target.classList.contains('show') || e.target.parentNode.classList.contains('show'))) {
  		if (clicknum === -1) {
@@ -171,6 +178,8 @@ function memoryGame(e) {
  	}
  }
 
+//Compare the first and second clicked card. Decied what is going to happening if they mach,
+//if all matched or not match.
 function checkIfMatch(clickedCard) {
 	move++;
  	if(clickedCard.innerHTML === prev.innerHTML) {
@@ -190,19 +199,20 @@ function checkIfMatch(clickedCard) {
 	scoreCounter(move);
 }
 
-
+//Flips the card back and forward.
 function turn(o) {
 	o.classList.toggle('open');
 	o.classList.toggle('show');
 }
 
-// Modal events
+// ** Modal events **
+//shows the winmessage modal.
  function winMessage() {
- 	console.log("itt vagyok");
  	stopTime();
  	MODAL.style.display = 'block';
  }
 
+//Close the winmessage modal.
  function closeModal() {
  	MODAL.style.display = 'none';
  }
