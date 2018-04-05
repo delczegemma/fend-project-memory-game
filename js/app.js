@@ -157,7 +157,7 @@ function startTime () {
 //** Main function **
 // Sets the happenings, when a card is being clicked.
 function memoryGame(e) {
- 	if(!(e.target.classList.contains('show') || e.target.parentNode.classList.contains('show'))) {
+ 	if(!(e.target.classList.contains('show') || e.target.parentNode.classList.contains('show')) && (e.target.classList.contains('card'))) {
  		if (clicknum === -1) {
 			clicknum = 0;
 			startTime();
